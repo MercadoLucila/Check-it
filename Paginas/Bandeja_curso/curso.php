@@ -51,6 +51,7 @@ session_start();
                                 echo '<button name="materia" type="submit" value="'.$materia['codigo_materia'].'">' . $materia['nombre'] . '</button>';
                             }
                             echo '</form>';
+                            //tablas
 
                             
                     
