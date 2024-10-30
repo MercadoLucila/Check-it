@@ -39,6 +39,15 @@ session_start();
 
         <div class="bandeja">
                 <div>
+                    <table>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Email</td>
+                            <td>Fecha de Nacimiento</td>
+                            <td>DNI</td>
+                            <td>Puntuacion</td>
+                            <td>Presente</td>
+                            <td>Eliminar Alumno</td>
                     <?php
                         
                         if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -48,10 +57,17 @@ session_start();
 
                             echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
                             foreach($alumnos as $alumno){
-                                echo '<button name="materia" type="submit" value="'.$materia['codigo_materia'].'">' . $materia['nombre'] . '</button>';
+                                echo '<tr>
+                                <td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
+                                <td>'.$alumno["email"].'</td>
+                                <td>'.$alumno["nacimiento"].'</td>
+                                <td>'.$alumno["DNI"].'</td>
+                                <td>agregar puntuacion</td>
+                                <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>
+                                <td></td>';
                             }
                             echo '</form>';
-                            //tablas
+                            
 
                             
                     
@@ -59,12 +75,16 @@ session_start();
                         }
                         
                     ?>
+                    <button></button>
+                    </table>
                 </div>
         </div>
 
         <div class="solapas">
             <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
             <a href="#">Materias</a>
+
+            <input type="checkbox">
 
         </div>
         
