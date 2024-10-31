@@ -7,6 +7,14 @@ require_once "../../Clases/Alumno.php";
 $database = new Database();
 $conn = $database -> connect();
 session_start();
+
+/*
+if($_POST["eliminar_alumno"]==$alumno["DNI"]){
+    $DNI=$alumno["DNI"];
+    Alumno::eliminarAlumno_Materia($conn,$DNI,$materia);
+}
+    */
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +22,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Resources/CSS/style_bandeja.css">
+    <link rel="stylesheet" href="../../Resources/CSS/curso.css">
     <link rel="icon" href="../../Resources/imagenes/Logo.ico">
 
     <title>Check-it Curso</title>
@@ -35,7 +43,6 @@ session_start();
     </div>
 
    <header class="header">
-        <div class="formulario_instituto" id="formulario_instituto"></div>
 
         <div class="bandeja">
                 <div>
@@ -53,18 +60,19 @@ session_start();
                         if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $materia = $_POST['materia'];
                             $alumnos = Alumno::buscarAlumnos($conn,$materia);
-                            var_dump($alumnos);
 
                             echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
                             foreach($alumnos as $alumno){
-                                echo '<tr>
-                                <td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
+                                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
                                 <td>'.$alumno["email"].'</td>
                                 <td>'.$alumno["nacimiento"].'</td>
                                 <td>'.$alumno["DNI"].'</td>
                                 <td>agregar puntuacion</td>
                                 <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>
-                                <td></td>';
+                                <td><form name="eliminar" action="../Bandeja_curso/curso.php" method="POST">
+                                <button name="eliminar_alumno" type="submit" value="'.$alumno["DNI"].'">Dar de baja</button>
+                                </form></td>';
+                                
                             }
                             echo '</form>';
                             
@@ -75,7 +83,6 @@ session_start();
                         }
                         
                     ?>
-                    <button></button>
                     </table>
                 </div>
         </div>
@@ -83,8 +90,6 @@ session_start();
         <div class="solapas">
             <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
             <a href="#">Materias</a>
-
-            <input type="checkbox">
 
         </div>
         

@@ -15,6 +15,18 @@ class Alumno{
         $this->nacimiento=$nacimiento;
     }
 
+    public static function eliminarAlumno_Materia($conn, $DNI, $codigo_materia){
+        $consulta="DELETE *
+        FROM materia_alumno
+        WHERE DNI = :DNI and codigo_materia = :codigo_materia ";
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(":DNI",$DNI);
+        $stmt->bindparam(":codigo_materia",$codigo_materia);
+        $stmt->execute();
+        
+    }
+
     public static function buscarAlumnos($conn, $codigo_materia){
         $consulta="SELECT *
         FROM alumno
