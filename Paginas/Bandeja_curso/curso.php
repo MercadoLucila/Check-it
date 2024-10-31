@@ -8,13 +8,6 @@ $database = new Database();
 $conn = $database -> connect();
 session_start();
 
-/*
-if($_POST["eliminar_alumno"]==$alumno["DNI"]){
-    $DNI=$alumno["DNI"];
-    Alumno::eliminarAlumno_Materia($conn,$DNI,$materia);
-}
-    */
-
 ?>
 
 <!DOCTYPE html>
@@ -48,25 +41,34 @@ if($_POST["eliminar_alumno"]==$alumno["DNI"]){
                 <div>
                     <table>
                         <tr>
-                            <td>Nombre</td>
-                            <td>Email</td>
-                            <td>Fecha de Nacimiento</td>
-                            <td>DNI</td>
-                            <td>Puntuacion</td>
-                            <td>Presente</td>
-                            <td>Eliminar Alumno</td>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>DNI</th>
+                            <th>Puntuacion</th>
+                            <th>Presente</th>
+                            <th>Eliminar Alumno</th>
                     <?php
                         
                         if($_SERVER["REQUEST_METHOD"] == "POST"){
-                            $materia = $_POST['materia'];
+                            if(isset($_POST['materia'])){
+                                $materia = $_POST['materia'];
+                                $_SESSION['materia']=$materia;
+                            }
+                            
+                            
+                            if(isset($_POST["eliminar_alumno"])){
+                                $DNI=$_POST["eliminar_alumno"];
+                                $materia= $_SESSION['materia'];
+                                Alumno::eliminarAlumno_Materia($conn,$DNI,$materia);
+                            }
+
                             $alumnos = Alumno::buscarAlumnos($conn,$materia);
+
 
                             echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
                             foreach($alumnos as $alumno){
-                                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
-                                <td>'.$alumno["email"].'</td>
-                                <td>'.$alumno["nacimiento"].'</td>
-                                <td>'.$alumno["DNI"].'</td>
+                                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td><td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td><td>'.$alumno["DNI"].'</td>
                                 <td>agregar puntuacion</td>
                                 <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>
                                 <td><form name="eliminar" action="../Bandeja_curso/curso.php" method="POST">

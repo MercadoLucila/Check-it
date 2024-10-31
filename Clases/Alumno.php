@@ -16,7 +16,7 @@ class Alumno{
     }
 
     public static function eliminarAlumno_Materia($conn, $DNI, $codigo_materia){
-        $consulta="DELETE *
+        $consulta="DELETE
         FROM materia_alumno
         WHERE DNI = :DNI and codigo_materia = :codigo_materia ";
 

@@ -12,13 +12,6 @@ body {
     background: #d0e6ca;
 }
 
-.image{
-    background: url(/Resources/imagenes/Classroom1.jpg) no-repeat center ; /*#e8f5e9;  Fondo verde claro */
-    background-size: cover;
-    filter: blur(2px);
-    height: 100vh;
-}
-
 .head {
     display: flex;
     justify-content: space-between;
@@ -62,11 +55,11 @@ body {
 }
 
 .navbar a {
-    float: left; /* Alinear a la izquierda */
-    display: block; /* Mostrar como bloque para ocupar todo el espacio */
+    float: left; 
+    display: block; 
     color: white; 
-    text-align: center; /* Centrar texto en los enlaces */
-    padding: 19px 20px; /* Espaciado interno de los enlaces */
+    text-align: center; 
+    padding: 19px 20px; 
     margin-right: 3vw;
     text-decoration: none; 
     text-transform: uppercase;
@@ -97,14 +90,14 @@ body {
     overflow: hidden;
 }
 
-/* Estilo del botón en el header */
+
 .btn-home .btn {
-    background-color: #4caf50; /* Verde brillante para el botón */
-    color: white; /* Texto blanco en el botón */
+    background-color: #4caf50;
+    color: white; 
     margin: 50px;
-    padding: 10px 15px; /* Espaciado interno del botón */
-    border-radius: 4px; /* Bordes redondeados en el botón */
-    text-decoration: none; /* Sin subrayado en el botón */
+    padding: 10px 15px; 
+    border-radius: 4px; 
+    text-decoration: none; 
 }
 
 .btn-home .btn:hover {
@@ -142,17 +135,25 @@ body {
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     text-align: center; 
+    align-content: center;
+    align-items: center;
 }
 
-.bandeja table th, .bandeja table td {
-    border-radius: 10%;
+.bandeja table th {
+    background-color:#8ab48b;
     padding: 12px;
+    border-top: 2px solid #006400; 
+    border-bottom: 2px solid #006400; 
+}
+
+.bandeja table td {
+    padding: 12px;
+    border-top: 2px solid #006400; 
     border-bottom: 2px solid #006400; 
 }
 
 .bandeja table tr:hover {
     background-color: #e8f5e9; 
-    height: 10%;
 }
 
 
@@ -183,33 +184,32 @@ body {
     margin-left: 38%;
 }
 
-/* Estilo de las etiquetas */
 label {
     align-self: flex-start;
-    display: flex; /* Para que cada etiqueta ocupe toda la línea */
-    margin-bottom: 5px; /* Espaciado inferior */
+    display: flex; 
+    margin-bottom: 5px; 
     margin-top: 5px;
-    color: #4a8c4a; /* Color verde medio */
+    color: #4a8c4a; 
 }
 
-/* Estilo de los campos de entrada */
+
 input[type="email"],input[type="text"],input[type="number"],
 input[type="password"] {
     
-    width: 90%; /* Ocupa todo el ancho disponible */
-    padding: 10px; /* Espaciado interno */
-    margin-bottom: 15px; /* Espaciado inferior entre campos */
-    border: 1px solid #b2e0b2; /* Borde verde claro */
-    border-radius: 4px; /* Bordes redondeados en los campos */
-    font-size: 16px; /* Tamaño de fuente legible */
+    width: 90%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #b2e0b2; 
+    border-radius: 4px; 
+    font-size: 16px; 
     color: #4a8c4a;
 
 }
 
 input:focus {
     border-color: #498f3b;
-    outline: none; /* Elimina el contorno predeterminado */
-    box-shadow: 0 0 5px rgba(84, 139, 63, 0.651); /* Efecto de sombra */
+    outline: none; 
+    box-shadow: 0 0 5px rgba(84, 139, 63, 0.651); 
 }
 
 
@@ -217,14 +217,12 @@ button {
     align-self: center;
     background-color: #4caf50;
     color: white; 
-    padding: 15px 20px; /* Espaciado interno del botón */
-    margin-left: 9vw;
-    margin-top: 10vh;
+    padding: 15px 20px; 
     border: none; 
     border-radius: 4px; 
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    font-size: 16px; /* Tamaño de fuente legible en el botón */
-    transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+    cursor: pointer; 
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 
