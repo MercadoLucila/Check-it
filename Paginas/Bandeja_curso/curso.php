@@ -24,12 +24,12 @@ session_start();
     <div class="head">
 
         <div class="logo">
-            <a href="../Main Page/index.php"> <img class="loguito" src="/Resources/imagenes/checkit-logoletras.png" alt="Logo Checkit"> </a>
+            <a href="../../index.php"> <img class="loguito" src="/Resources/imagenes/checkit-logoletras.png" alt="Logo Checkit"> </a>
         </div>
 
         <nav class="navbar">
-            <a href="../Main Page/index.php">Inicio</a>
             <a href="#">Contacto</a>
+            <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
 
@@ -88,7 +88,9 @@ session_start();
                     </table>
                 </div>
         </div>
-
+        <div>
+            <a href="alta_alumno.php" > Agregar Alumno </a>
+        </div>
         <div class="solapas">
             <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
             <a href="#">Materias</a>

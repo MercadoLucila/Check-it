@@ -128,7 +128,6 @@ body {
     
 }
 
-
 .bandeja table {
     border-radius: 20px;
     width: 100%;
@@ -144,6 +143,10 @@ body {
     padding: 12px;
     border-top: 2px solid #006400; 
     border-bottom: 2px solid #006400; 
+}
+
+.bandeja table tr {
+    border-radius: 20%;
 }
 
 .bandeja table td {

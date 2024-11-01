@@ -33,12 +33,12 @@
     <div class="head">
 
         <div class="logo">
-            <a href="../Main Page/index.php"> <img class="loguito" src="/Resources/imagenes/checkit-logoletras.png" alt="Logo Checkit"> </a>
+            <a href="../../index.php"> <img class="loguito" src="/Resources/imagenes/checkit-logoletras.png" alt="Logo Checkit"> </a>
         </div>
 
         <nav class="navbar">
-            <a href="../Main Page/index.php">Inicio</a>
             <a href="#">Contacto</a>
+            <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
 
