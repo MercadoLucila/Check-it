@@ -87,6 +87,25 @@ class Alumno{
         $stmt->bindparam(':DNI',$this->DNI, PDO::PARAM_INT);
         $stmt->bindparam(':codigo_materia',$codigo_materia,PDO::PARAM_STR);
         $stmt->execute();
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
+        if($row){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function matricularAlumno($conn,$codigo_materia){
+        $consulta="INSERT
+        INTO materia_alumno
+        (DNI,codigo_materia)
+        VALUES (:DNI, :codigo_materia)";
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(':DNI',$this->DNI, PDO::PARAM_INT);
+        $stmt->bindparam(':codigo_materia',$codigo_materia,PDO::PARAM_STR);
+        $stmt->execute();
     }
 }

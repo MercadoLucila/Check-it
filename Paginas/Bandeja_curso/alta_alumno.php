@@ -79,14 +79,19 @@
                         $checkeo=$alumno->corroborarAlumno($conn);
                         if($checkeo){
                             $matriculacion=$alumno->checkearMatricula($conn,$materia);
+                            if(!$matriculacion){
+                                $alumno->matricularAlumno($conn,$materia);
+                                echo ('<p> El alumno se dio de alta correctamente </p>'); 
+                            }
                         }else{
                             $alumno->subirAlumno($conn);
-                            $checkeo=$alumno->corroborarAlumno($conn);
+                            $alumno->matricularAlumno($conn,$materia);
+                            $checkeo=$alumno->checkearMatricula($conn,$materia);
                             if($checkeo){
                                 echo ('<p> El alumno se dio de alta correctamente </p>');   
                             }else{
                                 echo ('<p> No se pudo dar de alta el alumno</p>');
-                            }
+                            } //verificar si se puede subir alumno/matricular alumno
                         }
                     }
                 ?>
