@@ -74,7 +74,7 @@ class Instituto{
         }
     }
 
-    public static function buscarInstituto($conn){
+    public static function buscarInstitutos($conn){
         $busqueda_instituto=
         "SELECT instituto.nombre, instituto.CUE
         FROM instituto";
@@ -82,5 +82,17 @@ class Instituto{
         $stmt=$conn->query($busqueda_instituto);
         $stmt->execute();
          return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
+    public static function buscarInstituto($conn, $CUE){
+        $busqueda_instituto=
+        "SELECT instituto.nombre
+        FROM instituto
+        WHERE CUE = :CUE";
+
+        $stmt=$conn->prepare($busqueda_instituto);
+        $stmt->bindparam(":CUE",$CUE,PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 }

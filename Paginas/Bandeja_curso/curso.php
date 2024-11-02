@@ -28,7 +28,7 @@ session_start();
         </div>
 
         <nav class="navbar">
-            <a href="#">Contacto</a>
+            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -50,10 +50,12 @@ session_start();
                             <th>Eliminar Alumno</th>
                     <?php
                         
-                        if($_SERVER["REQUEST_METHOD"] == "POST"){
+                        if($_SERVER["REQUEST_METHOD"] == "POST" or $_SESSION['materia'] != NULL){
                             if(isset($_POST['materia'])){
                                 $materia = $_POST['materia'];
                                 $_SESSION['materia']=$materia;
+                            }else{
+                                $materia = $_SESSION['materia'];
                             }
                             
                             
@@ -87,12 +89,12 @@ session_start();
                     ?>
                     </table>
                 </div>
-        </div>
-        <div>
-            <a href="alta_alumno.php" > Agregar Alumno </a>
+            
         </div>
         <div class="solapas">
-            <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
+            <a href="alta_alumno.php" > Agregar Alumno </a>
+            <a href="#" > Agregar RAM a <?php  ?></a>
+            <a href="../Bandeja_institutos/index_institutos.php">Institutos</a>
             <a href="#">Materias</a>
 
         </div>

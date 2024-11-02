@@ -6,7 +6,7 @@
     $database = new Database();
     $conn = $database->connect();
 
-    $instituto=Instituto::buscarInstituto($conn);
+    $institutos=Instituto::buscarInstitutos($conn);
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@
         </div>
 
         <nav class="navbar">
-            <a href="#">Contacto</a>
+            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -44,20 +44,17 @@
                     <?php
 
                         echo '<form id="cue_instituto" name="cue_instituto" action="../Bandeja_materias/index_materias.php" method="POST">';
-                        foreach($instituto as $fila){
+                        foreach($institutos as $fila){
                             echo '<button name="instituto" type="submit" value="'.$fila['CUE'].'">' . $fila['nombre'] . '</button>';
                         }
                         echo '</form>';
                         
                     ?>
                 </div>
-                    
-                <div>
-                    <a href="add_instituto.php" > Agregar Instituto </a>
-                </div>
         </div>
 
         <div class="solapas">
+            <a href="add_instituto.php" > Agregar Instituto </a>
             <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
             <a href="#">Materias</a>
 

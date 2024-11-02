@@ -83,10 +83,11 @@ body {
     color: #ffffff; 
     background: #4a8c4ad2;
     padding: 2vh;
-    border-radius: 0px 5vh 5vh 0px;
+    border-radius: 5vh;
     text-transform: uppercase;
-    margin-top: 5vh;
-    width: 5vh;
+    margin-top: 2vh;
+    width: 15vw;
+    margin-right: 5vh;
     text-decoration: none;
 }
 
@@ -176,7 +177,7 @@ input:focus {
 }
 
 
-button {
+button,input[type="submit"]{
     align-self: center;
     background-color: #4caf50;
     color: white; 

@@ -18,9 +18,9 @@ if ($_SERVER ["REQUEST_METHOD"] == "POST"){
 
     $usuario = new Usuario($email,$clave,'','','');
     $verificar_usuario=$usuario->verificarUsuario($conn);
-    if($verificar_usuario==true){
+    if($verificar_usuario){
         $verificar_contraseña=$usuario->verificarClave($conn);
-        if ($verificar_contraseña==true){
+        if ($verificar_contraseña){
             $profesor=Profesor::profesorIniciaSesion($conn,$email);
             if($profesor){
                 session_start();

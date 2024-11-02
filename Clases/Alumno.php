@@ -65,14 +65,14 @@ class Alumno{
     public function subirAlumno($conn){
         $consulta="INSERT
         INTO alumno
-        (nombre,apellido,email,DNI,nacimiento)
-        VALUES (:nombre, :apellido, :email, :DNI, :nacimiento)";
+        ( DNI, nombre, apellido, email, nacimiento)
+        VALUES (:DNI, :nombre, :apellido, :email, :nacimiento)";
 
         $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(':DNI',$this->DNI,PDO::PARAM_INT);
         $stmt->bindparam(':nombre',$this->nombre, PDO::PARAM_STR);
         $stmt->bindparam(':apellido',$this->apellido,PDO::PARAM_STR);
         $stmt->bindparam(':email',$this->email,PDO::PARAM_STR);
-        $stmt->bindparam(':DNI',$this->DNI,PDO::PARAM_INT);
         $stmt->bindparam(':nacimiento',$this->nacimiento);
         $stmt->execute();
 
@@ -80,7 +80,7 @@ class Alumno{
 
     public function checkearMatricula($conn,$codigo_materia){
         $consulta="SELECT *
-        INTO materia_alumno
+        FROM materia_alumno
         WHERE DNI=:DNI and codigo_materia=:codigo_materia";
 
         $stmt=$conn->prepare($consulta);

@@ -2,11 +2,12 @@
 
     require_once '../../Clases/conexion.php';
     require_once '../../Clases/Instituto.php';
+    require_once '../../Clases/Profesor_Instituto.php';
 
     $database = new Database();
     $conn = $database->connect();
 
-    $instituto=Instituto::buscarInstituto($conn);
+    session_start();
 
     function clean_input($data){
         $data=trim($data);
@@ -37,7 +38,7 @@
         </div>
 
         <nav class="navbar">
-            <a href="#">Contacto</a>
+            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -52,7 +53,7 @@
             </div>
 
             <h3>Agregar Instituto</h3>
-            <form id="formulario" name="4" action="add_instituto.php" method="post">
+            <form id="formulario" name="add_instituto" action="add_instituto.php" method="post">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" name="nombre" type="text" required>
 
@@ -76,12 +77,12 @@
                         Secundario
                     </label>
                     <label for="secundarioTecnico">
-                        <input type="radio" id="secundarioTecnico" name="nivel" value="Secundario Técnico">
+                        <input type="radio" id="secundarioTecnico" name="nivel" value="Secundario Tecnico">
                         Secundario Técnico
                     </label>
                     <label for="terciario">
-                        <input type="radio" id="terciario" name="nivel" value="Terciario">
-                        Terciario
+                        <input type="radio" id="terciario" name="nivel" value="Terciario Tecnico Superior">
+                        Terciario Tecnico Superior
                     </label>
                     <label for="universitario">
                         <input type="radio" id="universitario" name="nivel" value="Universitario">
@@ -95,18 +96,31 @@
                         $descripcion = clean_input($_POST['descripcion']);
                         $direccion = clean_input($_POST['direccion']);
                         $nivel = clean_input($_POST['nivel']);
+                        
+                        $profesor = $_SESSION['profesor'];
+                        $legajo = $profesor["legajo"];
 
                         $instituto=new Instituto($CUE,$direccion,$descripcion,$nivel,$nombre);
                         $checkeo=$instituto->corroborarInstituto($conn);
+                        $asignacion=new Profesor_Instituto($legajo,$CUE);
+                        $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
+
                         if($checkeo){
-                            echo ('<p> Ya existe un instituto con ese CUE registrado </p>');
+                            if($checkeo_asignacion){
+                                echo ('<p> Ya existe un instituto con ese CUE registrado </p>');  
+                            }else{
+                                $asignacion->subir_profesor_instituto($conn);
+                                echo ('<p> El instituto ya estaba creado, acabamos de asignarselo </p>');  
+                            }
                         }else{
                             $instituto->subirInstituto($conn);
+                            $asignacion->subir_profesor_instituto($conn);
                             $checkeo=$instituto->corroborarInstituto($conn);
-                            if($checkeo){
-                                echo ('<p> Se ha subido el instituto correctamente </p>');   
+                            $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
+                            if($checkeo and $checkeo_asignacion){
+                                echo ('<p> Se ha subido y asignado el instituto correctamente </p>');   
                             }else{
-                                echo ('<p> No se pudo subir el instituto</p>');
+                                echo ('<p> No se pudo subir o asignar el instituto por algun error</p>');
                             }
                         }
                     }

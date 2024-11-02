@@ -6,8 +6,7 @@
     $database = new Database();
     $conn = $database->connect();
 
-    session_start();
-    $materia=$_SESSION['materia'];
+    
 
     function clean_input($data){
         $data=trim($data);
@@ -37,7 +36,7 @@
         </div>
 
         <nav class="navbar">
-            <a href="#">Contacto</a>
+            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -48,25 +47,26 @@
 
         <div class="bandeja">
             <div class="interactivos">
-                <a href="index_institutos.php" >Volver</a>
+                <a href="curso.php" >Volver</a>
             </div>
 
-            <h3>Agregar Instituto</h3>
+            <h3>Matricular Alumno</h3>
             <form id="formulario" name="subir_alumno" action="alta_alumno.php" method="post">
                 <label for="nombre">Nombre</label>
                 <input id="nombre" name="nombre" type="text" required>
 
-                <label for="apellido">Apellido</label>
+                <label for="apellido">apellido</label>
                 <input id="apellido" name="apellido" type="text" required>
 
                 <label for="email">Email</label>
-                <input id="email" name="email" type="email">
+                <input id="email" name="email" type="email" required>
 
                 <label for="DNI">DNI</label>
-                <input id="DNI" name="DNI" type="number">
+                <input id="DNI" name="DNI" type="number" required>
 
                 <label for="nacimiento">Fecha de Nacimiento</label>
-                <input id="nacimiento" name="nacimiento" type="date">
+                <input id="nacimiento" name="nacimiento" type="date" required>
+
                 <?php 
                     if($_SERVER ["REQUEST_METHOD"] == "POST"){
                         $nombre = clean_input($_POST['nombre']);
@@ -75,28 +75,33 @@
                         $DNI = clean_input($_POST['DNI']);
                         $nacimiento = clean_input($_POST['nacimiento']);
 
-                        $alumno=new Alumno($nombre,$apellido,$email,$DNI,$nacimiento);
+                        session_start();
+                        $codigo_materia=$_SESSION['materia']; 
+
+                        $alumno=new Alumno($DNI,$nombre,$apellido,$email,$nacimiento);
                         $checkeo=$alumno->corroborarAlumno($conn);
                         if($checkeo){
-                            $matriculacion=$alumno->checkearMatricula($conn,$materia);
+                            $matriculacion=$alumno->checkearMatricula($conn,$codigo_materia);
                             if(!$matriculacion){
-                                $alumno->matricularAlumno($conn,$materia);
-                                echo ('<p> El alumno se dio de alta correctamente </p>'); 
+                                $alumno->matricularAlumno($conn,$codigo_materia);
+                                echo '<p> El alumno se dio de alta correctamente </p>'; 
+                            }else{
+                                echo '<p> El alumno ya se encuentra matriculado en esta materia</p>';
                             }
                         }else{
                             $alumno->subirAlumno($conn);
-                            $alumno->matricularAlumno($conn,$materia);
-                            $checkeo=$alumno->checkearMatricula($conn,$materia);
+                            $alumno->matricularAlumno($conn,$codigo_materia);
+                            $checkeo=$alumno->checkearMatricula($conn,$codigo_materia);
                             if($checkeo){
-                                echo ('<p> El alumno se dio de alta correctamente </p>');   
+                                echo '<p> El alumno se dio de alta correctamente </p>';   
                             }else{
-                                echo ('<p> No se pudo dar de alta el alumno</p>');
-                            } //verificar si se puede subir alumno/matricular alumno
+                                echo '<p> No se pudo dar de alta el alumno</p>';
+                            } 
                         }
                     }
                 ?>
                 <div>
-                    <button type="submit">Subir Instituto</button>
+                    <button type="submit">Matricular Alumno</button>
                 </div>
 
                 

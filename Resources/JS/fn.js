@@ -6,7 +6,7 @@ formulario.addEventListener('submit', function(e){
     var datos= new FormData(formulario);
     console.log(datos.get('email'));
 
-    fetch('../main.php',{
+    fetch('../../main.php',{
         method:'POST',
         body: datos
     })

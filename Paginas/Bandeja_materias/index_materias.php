@@ -2,11 +2,13 @@
 
 require_once "../../Clases/conexion.php";
 require_once "../../Clases/Materia.php";
-require_once "../../Clases/Asignacion.php";
+require_once "../../Clases/Profesor_Instituto.php";
+require_once "../../Clases/Instituto.php";
 
 $database = new Database();
 $conn = $database -> connect();
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ session_start();
         </div>
 
         <nav class="navbar">
-            <a href="#">Contacto</a>
+            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -46,8 +48,8 @@ session_start();
                             $profesor = $_SESSION['profesor'];
                             $legajo = $profesor["legajo"];
 
-                            $asignacion=new Asignacion($legajo,$CUE);
-                            $buscar_asignacion=Asignacion::buscar_asignacion($conn,$CUE,$legajo);
+                            $asignacion=new Profesor_Instituto($legajo,$CUE);
+                            $buscar_asignacion=Profesor_Instituto::buscar_asignacion($conn,$CUE,$legajo);
                             $materias=Materia::buscarMaterias($conn,$buscar_asignacion);
 
                             echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
@@ -56,19 +58,26 @@ session_start();
                             }
                             echo '</form>';
 
-                            
-                    
-                        
+                            $_SESSION['instituto']=$CUE;
+                            $instituto=Instituto::buscarInstituto($conn,$CUE);
+                            $_SESSION['instituto.nombre']=$instituto["nombre"];
                         }
+
+
                         
                     ?>
                 </div>
         </div>
 
-        <div class="solapas">
-            <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
-            <a href="#">Materias</a>
+        <?php 
 
+        ?>
+
+
+        <div class="solapas">
+            <a href="../Bandeja_institutos/index_institutos.php">Volver a Institutos</a>
+            <a href="agregar_materia.php">Agregar Materia a Instituto <?php echo '<b>'.$instituto["nombre"].'</b>' ?></a>
+            <a href="agregar_materia.php">Agregar RAM a instituto <?php echo '<b>'.$instituto["nombre"].'</b>' ?></a>
         </div>
         
    </header>
