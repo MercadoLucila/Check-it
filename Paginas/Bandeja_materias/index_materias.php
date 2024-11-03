@@ -69,7 +69,8 @@ session_start();
                             $profesor = $_SESSION['profesor'];
                             $legajo = $profesor["legajo"];
                             $instituto=Instituto::buscarInstituto($conn,$CUE);
-
+                            $_SESSION['instituto.nombre']=$instituto["nombre"];
+                            
                             $asignacion=new Profesor_Instituto($legajo,$CUE);
                             $buscar_asignacion=Profesor_Instituto::buscar_asignacion($conn,$CUE,$legajo);
                             $materias=Materia::buscarMaterias($conn,$buscar_asignacion);
