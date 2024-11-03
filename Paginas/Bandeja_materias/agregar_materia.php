@@ -6,6 +6,7 @@
 
     $database = new Database();
     $conn = $database->connect();
+    session_start();
 
     function clean_input($data){
         $data=trim($data);
@@ -51,9 +52,7 @@
 
             <h3>Agregar Materia</h3>
 
-            <?php echo 'Ten en cuenta que estas agregando esta materia en el instituto' . $_SESSION["instituto.nombre"] .', en caso de que crees una materia en un instituo equivocado, luego puedes eliminarla dentro de las opciones de edision de materia.';?>
-
-            <form id="formulario" name="subir_alumno" action="alta_alumno.php" method="post">
+            <form id="formulario" name="subir_materia" action="agregar_materia.php" method="post">
                 <label for="nombre">Nombre de la materia</label>
                 <input id="nombre" name="nombre" type="text" required>
 
@@ -63,19 +62,18 @@
 
                 <?php 
                     if($_SERVER ["REQUEST_METHOD"] == "POST"){
-                        $nombre = clean_input($_POST['nombre']); 
-                        $codigo_materia = clean_input($_POST['codigo_materia']);
+                        $nombre = clean_input($_POST["nombre"]); 
+                        $codigo_materia = clean_input($_POST["codigo_materia"]);
+                        var_dump($codigo_materia);
                         
-                        session_start(); 
-                        $codigo_materia=$_SESSION['materia']; 
                         $profesor=$_SESSION["profesor"];
                         $legajo=$profesor["legajo"];
                         $CUE=$_SESSION["instituto"];
 
                         $id_asignacion=Profesor_Instituto::buscar_asignacion($conn,$CUE,$legajo);
+                        var_dump($id_asignacion);
                         $materia=new Materia($codigo_materia,$nombre,$id_asignacion);
                         $checkeo=$materia->checkear_materia($conn);
-
                         if($checkeo){
                             echo 'La materia ya se encuentra registrada o ya existe una materia con ese codigo de materia registrado.';
                         }else{
@@ -91,6 +89,11 @@
                 ?>
                 <div>
                     <button type="submit">Agregar Materia</button>
+                </div>
+                <div>
+                <?php echo '<p> Ten en cuenta que estas agregando esta materia en el instituto ' . $_SESSION["instituto.nombre"] .', </p>
+                <p> en caso de que crees una materia en un instituo equivocado, </p>
+                <p> luego puedes eliminarla dentro de las opciones de edicion de materia.</p>';?>
                 </div>
 
                 

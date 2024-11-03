@@ -4,10 +4,12 @@ require_once "../../Clases/conexion.php";
 require_once "../../Clases/Materia.php";
 require_once "../../Clases/Profesor_Instituto.php";
 require_once "../../Clases/Instituto.php";
+require_once "../../Clases/Ram.php";
 
 $database = new Database();
 $conn = $database -> connect();
 session_start();
+
 
 ?>
 
@@ -29,7 +31,7 @@ session_start();
         </div>
 
         <nav class="navbar">
-            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
+            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
             <a href="#">QA</a>
         </nav>
@@ -61,6 +63,22 @@ session_start();
                             $_SESSION['instituto']=$CUE;
                             $instituto=Instituto::buscarInstituto($conn,$CUE);
                             $_SESSION['instituto.nombre']=$instituto["nombre"];
+
+                        }else{
+                            $CUE = $_SESSION['instituto'];
+                            $profesor = $_SESSION['profesor'];
+                            $legajo = $profesor["legajo"];
+                            $instituto=Instituto::buscarInstituto($conn,$CUE);
+
+                            $asignacion=new Profesor_Instituto($legajo,$CUE);
+                            $buscar_asignacion=Profesor_Instituto::buscar_asignacion($conn,$CUE,$legajo);
+                            $materias=Materia::buscarMaterias($conn,$buscar_asignacion);
+
+                            echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
+                            foreach($materias as $materia){
+                                echo '<button name="materia" type="submit" value="'.$materia['codigo_materia'].'">' . $materia['nombre'] . '</button>';
+                            }
+                            echo '</form>';
                         }
 
 
@@ -70,7 +88,11 @@ session_start();
         </div>
 
         <?php 
+            /*
+            if(){
 
+            }
+            */
         ?>
 
 

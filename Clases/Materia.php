@@ -15,7 +15,7 @@ class Materia{
         $consulta="INSERT
         INTO materia
         (codigo_materia,id_asignacion,nombre)
-        VALUES (:codigo_materia,id_asignacion,:nombre)";
+        VALUES (:codigo_materia,:id_asignacion,:nombre)";
 
         $stmt = $conn->prepare($consulta);
         $stmt->bindparam(':codigo_materia',$this->codigo_materia,PDO::PARAM_STR);
@@ -58,11 +58,11 @@ class Materia{
         $stmt->bindparam(':codigo_materia',$this->codigo_materia,PDO::PARAM_STR);
         $stmt->execute();
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($row){
-            return true;
-        }else{
+        
+        if(!$row){
             return false;
+        }else{
+            return true;
         }
     }
 }
