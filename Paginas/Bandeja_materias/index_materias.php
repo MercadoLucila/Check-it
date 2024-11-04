@@ -99,8 +99,8 @@ session_start();
 
         <div class="solapas">
             <a href="../Bandeja_institutos/index_institutos.php">Volver a Institutos</a>
-            <a href="agregar_materia.php">Agregar Materia a Instituto <?php echo '<b>'.$instituto["nombre"].'</b>' ?></a>
-            <a href="agregar_materia.php">Agregar RAM a instituto <?php echo '<b>'.$instituto["nombre"].'</b>' ?></a>
+            <a href="agregar_materia.php">Agregar Materia a Instituto <?php echo '<b>'.$_SESSION["instituto.nombre"].'</b>' ?></a>
+            <a href="../Bandeja_ram/ram.php">Agregar RAM a instituto <?php echo '<b>'.$_SESSION["instituto.nombre"].'</b>' ?></a>
         </div>
         
    </header>

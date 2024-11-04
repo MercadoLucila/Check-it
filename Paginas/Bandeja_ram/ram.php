@@ -58,73 +58,42 @@
                 <label for="promocion">Nota Promocional Mínima</label>
                 <input id="promocion" name="nota_promocion" type="number" required>
 
-                <label for="descripcion">Descripcion</label>
-                <input id="descripcion" name="descripcion" type="text">
+                <label for="porcentaje_regular">Porcentaje de asistencia para estado Regular:</label>
+                <span>%
+                <input type="number" id="porcentaje_regular" name="porcentaje_regular" min="0" max="100" step="0.01">
+                </span>
+                
 
-                <label for="direccion">Direccion</label>
-                <input id="direccion" name="direccion" type="text">
+                <label for="porcentaje_promocion">Porcentaje de asistencia para estado Promocional:</label>
+                <span>%</span>
+                <input type="number" id="porcentaje_promocion" name="porcentaje_promocion" min="0" max="100" step="0.01">
+                
 
-                <div class="radios">
-                    <p>Nivel</p>
-                    <label for="primario">
-                        <input type="radio" id="primario" name="nivel" value="Primario" required>
-                        Primario
-                    </label>
-                    <label for="secundario">
-                        <input type="radio" id="secundario" name="nivel" value="Secundario">
-                        Secundario
-                    </label>
-                    <label for="secundarioTecnico">
-                        <input type="radio" id="secundarioTecnico" name="nivel" value="Secundario Tecnico">
-                        Secundario Técnico
-                    </label>
-                    <label for="terciario">
-                        <input type="radio" id="terciario" name="nivel" value="Terciario Tecnico Superior">
-                        Terciario Tecnico Superior
-                    </label>
-                    <label for="universitario">
-                        <input type="radio" id="universitario" name="nivel" value="Universitario">
-                        Universitario
-                    </label>
-                </div>
                 <?php 
-                    if($_SERVER ["REQUEST_METHOD"] == "POST"){
-                        $nombre = clean_input($_POST['nombre']);
-                        $CUE = clean_input($_POST['CUE']);
-                        $descripcion = clean_input($_POST['descripcion']);
-                        $direccion = clean_input($_POST['direccion']);
-                        $nivel = clean_input($_POST['nivel']);
+                   if($_SERVER ["REQUEST_METHOD"] == "POST"){
+                        $nota_regular = clean_input($_POST["nota_regular"]);
+                        $nota_promocion = clean_input($_POST["nota_promocion"]); 
+                        $porcentaje_regular = clean_input($_POST["porcentaje_regular"]);
+                        $porcentaje_promocion = clean_input($_POST["porcentaje_promocion"]);
                         
-                        $profesor = $_SESSION['profesor'];
-                        $legajo = $profesor["legajo"];
-
-                        $instituto=new Instituto($CUE,$direccion,$descripcion,$nivel,$nombre);
-                        $checkeo=$instituto->corroborarInstituto($conn);
-                        $asignacion=new Profesor_Instituto($legajo,$CUE);
-                        $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
-
+                        $CUE=$_SESSION["instituto"];
+                        $ram=new RAM($CUE, $nota_regular, $nota_promocion, $porcentaje_regular, $porcentaje_promocion);
+                        $checkeo=$ram->checkear_ram($conn);
                         if($checkeo){
-                            if($checkeo_asignacion){
-                                echo ('<p> Ya existe un instituto con ese CUE registrado </p>');  
-                            }else{
-                                $asignacion->subir_profesor_instituto($conn);
-                                echo ('<p> El instituto ya estaba creado, acabamos de asignarselo </p>');  
-                            }
+                            echo 'La materia ya se encuentra registrada o ya existe una materia con ese codigo de materia registrado.';
                         }else{
-                            $instituto->subirInstituto($conn);
-                            $asignacion->subir_profesor_instituto($conn);
-                            $checkeo=$instituto->corroborarInstituto($conn);
-                            $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
-                            if($checkeo and $checkeo_asignacion){
-                                echo ('<p> Se ha subido y asignado el instituto correctamente </p>');   
+                            $materia->subirMateria($conn);
+                            $checkear_materia=$materia->checkear_materia($conn);
+                            if($checkear_materia){
+                                echo '<p> Se ha agregado la materia correctamente </p>';   
                             }else{
-                                echo ('<p> No se pudo subir o asignar el instituto por algun error</p>');
-                            }
+                                echo '<p> No se pudo agregar la materia</p>';
+                            } 
                         }
-                    }
+                    }  
                 ?>
                 <div>
-                    <button type="submit">Subir Instituto</button>
+                    <button type="submit">Subir Ram</button>
                 </div>
 
                 
