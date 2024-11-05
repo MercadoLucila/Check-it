@@ -47,11 +47,13 @@
 
         <div class="bandeja">
             <div class="interactivos">
-                <a href="index_institutos.php" >Volver</a>
+                <a href="../Bandeja_institutos/index_institutos.php" >Volver</a>
             </div>
 
-            <h3>Agregar Ram a <?php echo '<b>'.$_SESSION['instituto.nombre'].'</b>' ?> </h3>
             <form id="formulario" name="add_ram" action="ram.php" method="post">
+
+            <h3>Agregar Ram a <?php echo '<b>'.$_SESSION['instituto.nombre'].'</b>' ?> </h3>
+
                 <label for="regular">Nota Regular Mínima</label>
                 <input id="regular" name="nota_regular" type="number" required>
 
@@ -59,9 +61,9 @@
                 <input id="promocion" name="nota_promocion" type="number" required>
 
                 <label for="porcentaje_regular">Porcentaje de asistencia para estado Regular:</label>
-                <span>%
+                <span>%</span>
                 <input type="number" id="porcentaje_regular" name="porcentaje_regular" min="0" max="100" step="0.01">
-                </span>
+                
                 
 
                 <label for="porcentaje_promocion">Porcentaje de asistencia para estado Promocional:</label>
@@ -80,14 +82,14 @@
                         $ram=new RAM($CUE, $nota_regular, $nota_promocion, $porcentaje_regular, $porcentaje_promocion);
                         $checkeo=$ram->checkear_ram($conn);
                         if($checkeo){
-                            echo 'La materia ya se encuentra registrada o ya existe una materia con ese codigo de materia registrado.';
+                            echo '<p>Este instituto ya tiene una Ram registrada, si desea editarla hágalo en la seccion "Editar Ram"</p>';
                         }else{
-                            $materia->subirMateria($conn);
-                            $checkear_materia=$materia->checkear_materia($conn);
-                            if($checkear_materia){
-                                echo '<p> Se ha agregado la materia correctamente </p>';   
+                            $ram->subir_ram($conn);
+                            $checkear_ram=$ram->checkear_ram($conn);
+                            if($checkear_ram){
+                                echo '<p> El ram se ha agregado correctamente</p>';   
                             }else{
-                                echo '<p> No se pudo agregar la materia</p>';
+                                echo '<p> El Ram no pudo ser agregado</p>';
                             } 
                         }
                     }  

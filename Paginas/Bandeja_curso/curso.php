@@ -3,10 +3,37 @@
 require_once "../../Clases/conexion.php";
 require_once "../../Clases/Materia.php";
 require_once "../../Clases/Alumno.php";
+require_once "../../Clases/Asistencia.php";
 
 $database = new Database();
 $conn = $database -> connect();
 session_start();
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+$fecha = date('Y-m-d');
+
+if($_SERVER["REQUEST_METHOD"] == "POST" or $_SESSION['materia'] != NULL){
+    if(isset($_POST['materia'])){
+        $materia = $_POST['materia'];
+        $_SESSION['materia']=$materia;
+    }else{
+        $materia = $_SESSION['materia'];
+    }
+
+    if(isset($_POST['presentes'])){
+        $presentes=$_POST["presentes"];
+        foreach($presentes as $presente){
+            $asistencia=new Asistencia($materia,$presente,$fecha);
+            $asistencia->tomar_asistencia($conn);
+        }
+    }
+
+
+}
+
+$alumnos = Alumno::buscarAlumnos($conn,$materia);
+
+
+
 
 ?>
 
@@ -45,55 +72,28 @@ session_start();
                             <th>Email</th>
                             <th>Fecha de Nacimiento</th>
                             <th>DNI</th>
-                            <th>Puntuacion</th>
                             <th>Presente</th>
-                            <th>Eliminar Alumno</th>
-                    <?php
-                        
-                        if($_SERVER["REQUEST_METHOD"] == "POST" or $_SESSION['materia'] != NULL){
-                            if(isset($_POST['materia'])){
-                                $materia = $_POST['materia'];
-                                $_SESSION['materia']=$materia;
-                            }else{
-                                $materia = $_SESSION['materia'];
-                            }
-                            
-                            
-                            if(isset($_POST["eliminar_alumno"])){
-                                $DNI=$_POST["eliminar_alumno"];
-                                $materia= $_SESSION['materia'];
-                                Alumno::eliminarAlumno_Materia($conn,$DNI,$materia);
-                            }
-
-                            $alumnos = Alumno::buscarAlumnos($conn,$materia);
-
-
-                            echo '<form name="materia" action="../Bandeja_curso/curso.php" method="POST">';
-                            foreach($alumnos as $alumno){
-                                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td><td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td><td>'.$alumno["DNI"].'</td>
-                                <td>agregar puntuacion</td>
-                                <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>
-                                <td><form name="eliminar" action="../Bandeja_curso/curso.php" method="POST">
-                                <button name="eliminar_alumno" type="submit" value="'.$alumno["DNI"].'">Dar de baja</button>
-                                </form></td>';
-                                
-                            }
-                            echo '</form>';
-                            
-
-                            
-                    
-                        
-                        }
-                        
-                    ?>
+                        </tr>                    
                     </table>
+                    <form action="curso.php" method="post">
+                     <?php 
+                        foreach($alumnos as $alumno){
+                            echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
+                            <td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td>
+                            <td>'.$alumno["DNI"].'</td>
+                            <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>';
+                        }
+                    ?>
+
+                    <input type="submit" value="Subir Asistencia">
+                    </form>
                 </div>
             
         </div>
         <div class="solapas">
             <a href="alta_alumno.php" > Agregar Alumno </a>
-            <a href="#" > Agregar RAM a <?php  ?></a>
+            <a href="eliminar_alumno.php">Eliminar Alumno</a>
+            <a href="#" > Agregar RAM a <?php echo'<b>'.$_SESSION["instituto.nombre"].'</b>'?></a>
             <a href="../Bandeja_institutos/index_institutos.php">Institutos</a>
             <a href="#">Materias</a>
 

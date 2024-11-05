@@ -55,8 +55,6 @@
 
         <div class="solapas">
             <a href="add_instituto.php" > Agregar Instituto </a>
-            <a href="../Bandeja_Principal/bandeja.php">Institutos</a>
-            <a href="#">Materias</a>
 
         </div>
         

@@ -39,7 +39,7 @@ class Alumno{
         $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if(!$row){
-            return "Aún no hay alumnos en esta materia";
+            return false;
         }else{
             return $row;
         }

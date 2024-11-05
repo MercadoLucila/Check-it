@@ -38,9 +38,8 @@
         </div>
 
         <nav class="navbar">
-            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
+            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
-            <a href="#">QA</a>
         </nav>
 
     </div>
@@ -52,8 +51,11 @@
                 <a href="index_institutos.php" >Volver</a>
             </div>
 
-            <h3>Agregar Instituto</h3>
+            
             <form id="formulario" name="add_instituto" action="add_instituto.php" method="post">
+            
+            <h3>Agregar Instituto</h3>
+
                 <label for="nombre">Nombre</label>
                 <input id="nombre" name="nombre" type="text" required>
 
