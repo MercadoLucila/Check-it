@@ -92,6 +92,7 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
         </div>
         <div class="solapas">
             <a href="alta_alumno.php" > Agregar Alumno </a>
+            <a href="agregar_nota.php">Subir Notas</a>
             <a href="eliminar_alumno.php">Eliminar Alumno</a>
             <a href="#" > Agregar RAM a <?php echo'<b>'.$_SESSION["instituto.nombre"].'</b>'?></a>
             <a href="../Bandeja_institutos/index_institutos.php">Institutos</a>
