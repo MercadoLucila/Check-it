@@ -70,4 +70,36 @@ class Nota {
         $stmt->bindparam(":fecha",$this->fecha);
         $stmt->execute();
     }
+
+    public static function buscar_nota($conn,$DNI_alumno,$codigo_materia){
+        $consulta="SELECT fecha, calificacion 
+        FROM notas 
+        WHERE DNI_alumno = :DNI_alumno AND codigo_materia = :codigo_materia 
+        ORDER BY fecha ASC";
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(":codigo_materia",$codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(":DNI_alumno",$DNI_alumno,PDO::PARAM_INT);
+        $stmt->execute();
+        $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+
+    public static function calcular_promedio($conn,$DNI_alumno,$codigo_materia){
+        $consulta="SELECT 
+        SUM(calificacion) AS total_calificaciones, 
+        AVG(calificacion) AS promedio 
+        FROM notas 
+        WHERE DNI_alumno = :DNI_alumno AND codigo_materia = :codigo_materia";
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(":codigo_materia",$codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(":DNI_alumno",$DNI_alumno,PDO::PARAM_INT);
+        $stmt->execute();
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
+
 }

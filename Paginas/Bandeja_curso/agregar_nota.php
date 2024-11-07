@@ -2,6 +2,7 @@
 require_once '../../Clases/conexion.php';
 require_once '../../Clases/Alumno.php';
 require_once '../../Clases/Nota.php';
+require_once '../../Clases/Asistencia.php';
 
 $database = new Database();
 $conn = $database->connect();
@@ -25,7 +26,7 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../../Resources/CSS/add_instituto.css">
+<link rel="stylesheet" href="../../Resources/CSS/notas.css">
 <link rel="icon" href="../../Resources/imagenes/Logo.ico">
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -85,24 +86,27 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
                 if($_SERVER ["REQUEST_METHOD"] == "POST"){
                     if(isset($_POST["fecha"])){
                         $_SESSION["fecha_parcial"]=$_POST["fecha"];
-                        var_dump($_SESSION["fecha_parcial"]);
                     } 
                     if(isset($_POST['DNI'])){
                         $DNI = clean_input($_POST['DNI']);
                         $nota = clean_input($_POST['nota']);
                         $fecha = $_SESSION["fecha_parcial"];
 
-                        var_dump($DNI);
-                        var_dump($nota);
-                        var_dump($fecha);
-
                         $calificacion=new Nota($materia,$DNI,$nota,$fecha);
-                        $calificacion->subir_nota($conn);
                         $checkeo_nota=$calificacion->checkear_nota($conn);
                         if($checkeo_nota){
-                            echo '<p> Nota subida correctamente </p>';
+                            echo '<p> Ya subió la nota de este alumno y ese parcial </p>';
                         }else{
-                            echo '<p> No se pudo subir la nota </p>';
+                            $calificacion->subir_nota($conn);
+                            $calificacion=new Nota($materia,$DNI,$nota,$fecha);
+                            $checkeo_nota=$calificacion->checkear_nota($conn);
+                            if($checkeo_nota){
+                                echo '<p> Nota subida correctamente </p>';
+                                header("location: agregar_nota.php");
+                                exit();
+                            }else{
+                                echo '<p> No se pudo subir la nota </p>';
+                            }
                         }
                     }  
                         
@@ -111,7 +115,44 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
     </div>
 
     <div class="bandeja2">
+       
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Porcentaje de Asistencias</th>
+                <th>Primer Parcial</th>
+                <th>Segundo Parcial</th>
+                <th>Nota Final</th>
+                <th>Estado</th>
+            </tr>                    
+        
+            <?php 
+            foreach($alumnos as $alumno){
+                $notas=Nota::buscar_nota($conn,$alumno["DNI"],$materia);
+                $calculo_promedio=Nota::calcular_promedio($conn,$alumno["DNI"],$materia);
+                $promedio=number_format($calculo_promedio["promedio"] / 1, 2);
+                $buscar_promedio_asistencia=Asistencia::promedio_asistencia($conn,$alumno["DNI"],$materia);
+                $promedio_asistencia=number_format($buscar_promedio_asistencia["porcentaje_asistencia"]/ 1);
+                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>';
+                echo '<td>'.$promedio_asistencia.'%</td>';
+                $cont=0;
+                foreach($notas as $nota){
+                    $cont=$cont+1;
+                    echo '<td>'.$nota["calificacion"].'</td>';
+                }
+                while($cont<3){
+                    $cont=$cont+1;
+                    echo '<td>-</td>';
+                }
+                
+                echo '<td>calcular estado</td>';
+                
+                
+            }
+            ?>
+        </table>
 
+                
     </div>
     
 </header>

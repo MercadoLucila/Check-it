@@ -42,4 +42,21 @@ class Asistencia{
         return $row;
         
     }
+
+    public static function promedio_asistencia($conn,$DNI_alumno,$codigo_materia){
+        $consulta="SELECT 
+        COUNT(DISTINCT fecha) AS total_dias_clase, 
+        COUNT(DISTINCT CASE WHEN DNI_alumno = :DNI_alumno THEN fecha END) AS dias_asistidos,
+        (COUNT(DISTINCT CASE WHEN DNI_alumno = :DNI_alumno THEN fecha END) / COUNT(DISTINCT fecha)) * 100 AS porcentaje_asistencia
+        FROM asistencia
+        WHERE codigo_materia = :codigo_materia";
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(":codigo_materia",$codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(":DNI_alumno",$DNI_alumno,PDO::PARAM_INT);
+        $stmt->execute();
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+    }
 }
