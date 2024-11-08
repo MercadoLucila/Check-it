@@ -55,48 +55,53 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
         </div>
 
         <nav class="navbar">
-            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
+            <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
-            <a href="#">QA</a>
+
         </nav>
 
     </div>
 
+    
+
    <header class="header">
-
         <div class="bandeja">
-                <div>
-                    <table>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Fecha de Nacimiento</th>
-                            <th>DNI</th>
-                            <th>Presente</th>
-                        </tr>                    
-                    </table>
-                    <form action="curso.php" method="post">
-                     <?php 
-                        foreach($alumnos as $alumno){
-                            echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
-                            <td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td>
-                            <td>'.$alumno["DNI"].'</td>
-                            <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>';
-                        }
-                    ?>
-
-                    <input type="submit" value="Subir Asistencia">
-                    </form>
-                </div>
-            
+            <a class="volver" href="../Bandeja_materias/index_materias.php">Volver a Materias</a>
+            <div class="bandeja1" >
+                    <div>
+                        <table>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Fecha de Nacimiento</th>
+                                <th>DNI</th>
+                                <th>Presente</th>
+                            </tr>                    
+                        
+                        <form action="curso.php" method="post">
+                        <?php 
+                            foreach($alumnos as $alumno){
+                                echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
+                                <td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td>
+                                <td>'.$alumno["DNI"].'</td>
+                                <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>';
+                            }
+                        ?>
+                    
+                        <input type="submit" value="Subir Asistencia">
+                        </form>
+                        </table>
+                    </div>
+                
+            </div>
         </div>
         <div class="solapas">
             <a href="alta_alumno.php" > Agregar Alumno </a>
             <a href="agregar_nota.php">Subir Notas</a>
             <a href="eliminar_alumno.php">Eliminar Alumno</a>
-            <a href="#" > Agregar RAM a <?php echo'<b>'.$_SESSION["instituto.nombre"].'</b>'?></a>
+            <a href="../Bandeja_ram/ram.php" > Agregar RAM a <?php echo'<b>'.$_SESSION["instituto.nombre"].'</b>'?></a>
             <a href="../Bandeja_institutos/index_institutos.php">Institutos</a>
-            <a href="#">Materias</a>
+            
 
         </div>
         

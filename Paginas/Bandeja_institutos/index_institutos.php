@@ -29,9 +29,8 @@
         </div>
 
         <nav class="navbar">
-            <a href="../Bandeja_Principal/badeja.php">Inicio</a>
+            <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
-            <a href="#">QA</a>
         </nav>
 
     </div>

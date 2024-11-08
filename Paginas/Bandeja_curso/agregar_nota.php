@@ -3,6 +3,7 @@ require_once '../../Clases/conexion.php';
 require_once '../../Clases/Alumno.php';
 require_once '../../Clases/Nota.php';
 require_once '../../Clases/Asistencia.php';
+require_once '../../Clases/Ram.php';
 
 $database = new Database();
 $conn = $database->connect();
@@ -17,8 +18,8 @@ function clean_input($data){
 session_start();
 $materia = $_SESSION['materia'];
 $alumnos = Alumno::buscarAlumnos($conn,$materia);
-
-
+$ram=Ram::obtener_ram($conn,$_SESSION["instituto"]);
+$calificaciones=[];
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +42,7 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
     </div>
 
     <nav class="navbar">
-        <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
+        <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
         <a href="../../index.php">Cerrar Sesión</a>
     </nav>
 
@@ -111,6 +112,11 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
                     }  
                         
                 }
+                if(!$ram){
+                    echo '<p>Para poder mostrar el</p><b> estado del alumno </b><p>es necesario que ingrese la RAM del instituto</p><b> '.$_SESSION["instituto.nombre"].'</b><p>. </p>
+                    <p> ¿Desea agregar RAM al instituto </p><b>'.$_SESSION["instituto.nombre"].'</b><p>? </p>
+                    <a href="../Bandeja_ram/ram.php" > Agregar RAM a <b>'.$_SESSION["instituto.nombre"].'</b></a>'; 
+                }
             ?>
     </div>
 
@@ -139,13 +145,18 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
                 foreach($notas as $nota){
                     $cont=$cont+1;
                     echo '<td>'.$nota["calificacion"].'</td>';
+                    array_push($calificaciones,$nota["calificacion"]);
                 }
                 while($cont<3){
                     $cont=$cont+1;
                     echo '<td>-</td>';
                 }
-                
-                echo '<td>calcular estado</td>';
+                if(!$ram){
+                    echo '<td>Se necesita RAM</td></tr>';
+                }else{
+                    $estado=Ram::obtener_estado($conn,$_SESSION["instituto"],$calificaciones,$promedio_asistencia);
+                    echo '<td>'.$estado.'</td></tr>';
+                }
                 
                 
             }

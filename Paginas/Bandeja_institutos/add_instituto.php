@@ -38,13 +38,13 @@
         </div>
 
         <nav class="navbar">
-            <a href="../Bandeja_Principal/bandeja.php">Inicio</a>
+            <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
             <a href="../../index.php">Cerrar Sesión</a>
         </nav>
 
     </div>
-
-   <header class="header">
+    <div class="image"></div>
+    <header class="header">
 
         <div class="bandeja">
             <div class="interactivos">
