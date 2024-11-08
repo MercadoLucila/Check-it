@@ -18,6 +18,9 @@ Ejecucion: <br>
 • php -S localhost:8000 (ruta copiada anteriormente) <br>
 • Entrar a tu navegador y entrar a la pagina http://localhost:8000/ <br>
 
+inicia sesion con los siguientes datos: <br>
+• usuario: javierparra@gmail.com <br> 
+• clave: javierparra <br>
 
 
 
