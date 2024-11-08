@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+body .image{
+    background: url(/Resources/imagenes/Classroom1.jpg) no-repeat center ; /*#e8f5e9;  Fondo verde claro */
+    background-size: cover;
+    filter: blur(2px);
+    height: 100vh;
+}
+
+body {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 63px;
+    background: #5e9e60;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Estilo general del header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left; /* Centrado del contenido */
+    height: 100vh !important;
+    width: 100vw !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    
+}
+
+.loguito{
+    height: 10%;
+    width: 10vw;
+    margin-left: 1vw;
+}
+
+.navbar {
+    background-color: #5e9e60; 
+    overflow: hidden; /* Evita que los elementos se salgan del contenedor */
+    display: flex;
+    margin-right: 1vw;
+    text-transform: uppercase;
+
+}
+
+.navbar a {
+    float: left; /* Alinear a la izquierda */
+    display: block; /* Mostrar como bloque para ocupar todo el espacio */
+    color: white; 
+    text-align: center; /* Centrar texto en los enlaces */
+    padding: 19px 20px; /* Espaciado interno de los enlaces */
+    margin-right: 3vw;
+    text-decoration: none; 
+    text-transform: uppercase;
+    font-size: 20px;
+
+}
+
+.navbar a:hover {
+    background-color: #509653; 
+}
+
+.interactivos a{
+    text-decoration: none; 
+    text-transform: uppercase;
+    align-self: center;
+    background-color: #4caf50;
+    color: white; 
+    padding: 15px 20px; 
+    border: none; 
+    border-radius: 3vh; 
+    cursor: pointer; 
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
+}
+.interactivos a:hover  {
+    background-color: #3b7e3e; 
+    transform: scale(1.025);
+}
+
+
+form {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f9f9f9; 
+    border-radius: 1vh;
+    margin-top: 3vh;
+    box-shadow: 0 1vh 1vw rgba(0, 0, 0, 0.1);
+    padding: 2vh;
+    max-width: 100%;
+    color: #327436;
+    width: 150%;
+}
+
+form p {
+    color: #327436;
+    margin: 2%;
+}
+
+label {
+    align-self: flex-start;
+    display: flex; 
+    margin-bottom: 5px; 
+    margin-top: 5px;
+    color: #4a8c4a; 
+}
+
+input[type="email"],input[type="text"],input[type="number"],
+input[type="date"] {
+    
+    width: 90%; /* Ocupa todo el ancho disponible */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 15px; /* Espaciado inferior entre campos */
+    border: 1px solid #b2e0b2; /* Borde verde claro */
+    border-radius: 4px; /* Bordes redondeados en los campos */
+    font-size: 16px; /* Tamaño de fuente legible */
+    color: #4a8c4a;
+
+}
+
+input:focus {
+    border-color: #498f3b;
+    outline: none; /* Elimina el contorno predeterminado */
+    box-shadow: 0 0 5px rgba(84, 139, 63, 0.651); /* Efecto de sombra */
+}
+
+
+input[type="submit"],button[type="submit"] {
+    align-self: center;
+    background-color: #4caf50;
+    color: white; 
+    padding: 15px 20px; /* Espaciado interno del botón */
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de fuente legible en el botón */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+}
+
+
+input[type="submit"]:hover  {
+    background-color: #3b7e3e; 
+    transform: scale(1.025);
+}
+
+
+
