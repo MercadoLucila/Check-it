@@ -4,6 +4,7 @@ require_once "../../Clases/conexion.php";
 require_once "../../Clases/Materia.php";
 require_once "../../Clases/Alumno.php";
 require_once "../../Clases/Asistencia.php";
+require_once '../../Clases/Ram.php';
 
 $database = new Database();
 $conn = $database -> connect();
@@ -26,13 +27,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" or $_SESSION['materia'] != NULL){
             $asistencia->tomar_asistencia($conn);
         }
     }
-
-
 }
 
 $alumnos = Alumno::buscarAlumnos($conn,$materia);
-
+$ram=Ram::obtener_ram($conn,$_SESSION["instituto"]);
 $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
+
 
 ?>
 
@@ -96,29 +96,39 @@ $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
                 
             </div>
         </div>
-        
-        <div class="solapas">
-            <?php 
-                if($cumpleanios){
-                    $cont=0;
-                    echo"<a class='cumpleanitos'> <b> Hoy es el cumpleaños de ";  
-                    foreach($cumpleanios as $cumpleaniero){
-                        $cont=$cont+1;
-                        if($cont>1){
-                            echo ' y '.$cumpleaniero["nombre"].' '.$cumpleaniero["apellido"]; 
-                        }else{
-                            echo $cumpleaniero["nombre"].' '.$cumpleaniero["apellido"];
+        <div>
+            <div class="cumpleanitos">
+                <?php 
+                    if($cumpleanios){
+                        $cont=0;
+                        echo"<a> <b> Hoy es el cumpleaños de ";  
+                        foreach($cumpleanios as $cumpleaniero){
+                            $cont=$cont+1;
+                            if($cont>1){
+                                echo ' y '.$cumpleaniero["nombre"].' '.$cumpleaniero["apellido"]; 
+                            }else{
+                                echo $cumpleaniero["nombre"].' '.$cumpleaniero["apellido"];
+                            }
                         }
+                        echo"</b></a>";
                     }
-                    echo"</b></a>";
-                }
-            ?>
-            <a href="alta_alumno.php" > Agregar Alumno </a>
-            <a href="eliminar_alumno.php">Eliminar Alumno</a>
-            <a href="modificar_alumno.php">Editar Alumno</a>
-            <a href="agregar_nota.php">Subir Notas</a>
-            <a href="../Bandeja_ram/ram.php" > Agregar RAM a <?php echo'<b>'.$_SESSION["instituto.nombre"].'</b>'?></a>
-            <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
+                ?>
+            </div>
+            <div class="solapas">
+                <a href="alta_alumno.php" > Agregar Alumno </a>
+                <a href="eliminar_alumno.php">Eliminar Alumno</a>
+                <a href="modificar_alumno.php">Editar Alumno</a>
+                <a href="fecha_parcial.php">Subir Notas</a>
+                <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
+            </div>
+            <div class="ram">
+                <?php 
+                    if(!$ram){
+                        echo '<a href="../Bandeja_ram/ram.php" > Agregar RAM a '.$_SESSION["instituto.nombre"].'</b></a>';
+                    }
+                    
+                ?>
+            </div>
         </div>
         
    </header>

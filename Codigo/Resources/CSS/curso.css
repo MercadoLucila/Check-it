@@ -44,11 +44,6 @@ body {
     margin-left: 1vw;
 }
 
-.cumpleanitos{
-    height: 1%;
-    width: 1%;
-}
-
 .navbar {
     background-color: #5e9e60; 
     overflow: hidden; 
@@ -88,10 +83,23 @@ body {
     text-decoration: none;
 }
 
-.cumpleanitos p{
+.cumpleanitos a{
     font-size: 2vh;
     color: #ffffff; 
-    background-color: #ba8344;
+    background: #77ce3ed2;
+    padding: 2vh;
+    border-radius: 5vh;
+    text-transform: uppercase;
+    margin-top: 2vh;
+    width: 15vw;
+    margin-right: 5vh;
+    text-decoration: none;
+}
+
+.ram a{
+    font-size: 2vh;
+    color: #ffffff; 
+    background: #77ce3ed2;
     padding: 2vh;
     border-radius: 5vh;
     text-transform: uppercase;
@@ -102,27 +110,15 @@ body {
 }
 
 
-.solapas {
+.solapas, .cumpleanitos, .ram {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     transition: transform 3s ease;
 }
 
-.cumpleanitos p{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-
-.solapas a:hover{
+.solapas a:hover {
     background-color: #4f8152; 
-    transform: scale(1.025);
-}
-
-.cumpleanitos a:hover{
-    background-color: #dea75a; 
     transform: scale(1.025);
 }
 

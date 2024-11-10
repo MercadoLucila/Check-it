@@ -19,7 +19,13 @@ session_start();
 $materia = $_SESSION['materia'];
 $alumnos = Alumno::buscarAlumnos($conn,$materia);
 $ram=Ram::obtener_ram($conn,$_SESSION["instituto"]);
-$calificaciones=[];
+
+if(isset($_POST["fecha"])){
+    $_SESSION["fecha_parcial"]=$_POST["fecha"];
+    $fecha = $_SESSION["fecha_parcial"];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -55,14 +61,7 @@ $calificaciones=[];
             <a href="curso.php" >Volver</a>
         </div>
 
-        <form action="agregar_nota.php" method="post">
-            <label for="fecha">Fecha del Parcial</label>
-            <input id="fecha" name="fecha" type="date" required>
-
-            <input type="submit" value="Subir Fecha">
-        </form>
-
-        <h3>Instancia Evaluativa </h3>
+        <h3>Instancia Evaluativa del <?php echo'<b>'.$fecha.'</b>';  ?></h3>
         <form id="nota_alumno" name="nota_alumno" action="agregar_nota.php" method="post">
 
             <label for="DNI">Alumno</label>
@@ -85,13 +84,9 @@ $calificaciones=[];
 
         <?php 
                 if($_SERVER ["REQUEST_METHOD"] == "POST"){
-                    if(isset($_POST["fecha"])){
-                        $_SESSION["fecha_parcial"]=$_POST["fecha"];
-                    } 
                     if(isset($_POST['DNI'])){
                         $DNI = clean_input($_POST['DNI']);
                         $nota = clean_input($_POST['nota']);
-                        $fecha = $_SESSION["fecha_parcial"];
 
                         $calificacion=new Nota($materia,$DNI,$nota,$fecha);
                         $checkeo_nota=$calificacion->checkear_nota($conn);
@@ -135,6 +130,7 @@ $calificaciones=[];
         
             <?php 
             foreach($alumnos as $alumno){
+                $calificaciones=[];
                 $notas=Nota::buscar_nota($conn,$alumno["DNI"],$materia);
                 $calculo_promedio=Nota::calcular_promedio($conn,$alumno["DNI"],$materia);
                 $promedio=number_format($calculo_promedio["promedio"] / 1, 2);
@@ -152,7 +148,6 @@ $calificaciones=[];
                     $cont=$cont+1;
                     echo '<td>-</td>';
                 }
-
                 echo '<td>'.$promedio.'</td>';
                 if(!$ram){
                     echo '<td>Se necesita RAM</td></tr>';
@@ -160,8 +155,6 @@ $calificaciones=[];
                     $estado=Ram::obtener_estado($conn,$_SESSION["instituto"],$calificaciones,$promedio_asistencia);
                     echo '<td>'.$estado.'</td></tr>';
                 }
-                
-                
             }
             ?>
         </table>
