@@ -28,13 +28,13 @@ class Materia{
 
     }
 
-    public function eliminarMateria($conn){
+    public static function eliminar_materia($conn,$codigo_materia){
         $consulta="DELETE
         FROM materia
         WHERE codigo_materia=:codigo_materia";
 
         $stmt = $conn->prepare($consulta);
-        $stmt->bindparam(':codigo_materia',$this->codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(':codigo_materia',$codigo_materia,PDO::PARAM_STR);
         $stmt->execute();
     }
 
@@ -49,13 +49,13 @@ class Materia{
         return $buscar->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function checkear_materia($conn){
+    public static function checkear_materia($conn,$codigo_materia){
         $consulta="SELECT *
         FROM materia
         WHERE codigo_materia=:codigo_materia";
 
         $stmt = $conn->prepare($consulta);
-        $stmt->bindparam(':codigo_materia',$this->codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(':codigo_materia',$codigo_materia,PDO::PARAM_STR);
         $stmt->execute();
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
         

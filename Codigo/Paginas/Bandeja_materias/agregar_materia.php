@@ -69,12 +69,12 @@
                         $buscar_asignacion=Profesor_Instituto::buscar_asignacion($conn,$CUE,$legajo);
                         $id_asignacion=$buscar_asignacion["id"];
                         $materia=new Materia($codigo_materia,$nombre,$id_asignacion);
-                        $checkeo=$materia->checkear_materia($conn);
+                        $checkeo=Materia::checkear_materia($conn,$codigo_materia);
                         if($checkeo){
                             echo 'La materia ya se encuentra registrada o ya existe una materia con ese codigo de materia registrado.';
                         }else{
                             $materia->subirMateria($conn);
-                            $checkear_materia=$materia->checkear_materia($conn);
+                            $checkear_materia=Materia::checkear_materia($conn,$codigo_materia);
                             if($checkear_materia){
                                 echo '<p> Se ha agregado la materia correctamente </p>';   
                             }else{
