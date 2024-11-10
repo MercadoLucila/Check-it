@@ -80,12 +80,12 @@
                         
                         $CUE=$_SESSION["instituto"];
                         $ram=new RAM($CUE, $nota_regular, $nota_promocion, $porcentaje_regular, $porcentaje_promocion);
-                        $checkeo=$ram->checkear_ram($conn);
+                        $checkeo=$ram->checkear_ram($conn,$CUE);
                         if($checkeo){
                             echo '<p>Este instituto ya tiene una Ram registrada, si desea editarla hágalo en la seccion "Editar Ram"</p>';
                         }else{
                             $ram->subir_ram($conn);
-                            $checkear_ram=$ram->checkear_ram($conn);
+                            $checkear_ram=$ram->checkear_ram($conn,$CUE);
                             if($checkear_ram){
                                 echo '<p> El ram se ha agregado correctamente</p>';   
                             }else{

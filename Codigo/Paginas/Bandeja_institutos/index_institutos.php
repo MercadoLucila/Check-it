@@ -45,7 +45,6 @@
                         if($institutos){
                             echo '<form action="../Bandeja_materias/index_materias.php" method="POST">';
                             foreach($institutos as $fila){
-                                var_dump($instituto);
                                 echo '<button name="instituto" type="submit" value="'.$fila['CUE'].'">' . $fila['nombre'] . '</button>';
                             }
                             echo '</form>';

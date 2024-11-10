@@ -60,7 +60,6 @@ Class Ram {
         $stmt->bindparam(":asistencia_regular",$this->asistencia_regular,PDO::PARAM_INT);
         $stmt->bindparam(":asistencia_promocion",$this->asistencia_promocion,PDO::PARAM_INT);
         $stmt->execute();
-        
     }
 
     public static function eliminar_ram($conn, $CUE){
