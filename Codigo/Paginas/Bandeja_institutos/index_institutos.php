@@ -45,6 +45,7 @@
                         if($institutos){
                             echo '<form action="../Bandeja_materias/index_materias.php" method="POST">';
                             foreach($institutos as $fila){
+                                var_dump($instituto);
                                 echo '<button name="instituto" type="submit" value="'.$fila['CUE'].'">' . $fila['nombre'] . '</button>';
                             }
                             echo '</form>';
@@ -59,7 +60,7 @@
 
         <div class="solapas">
             <a href="add_instituto.php" > Agregar Instituto </a>
-
+            <a href="../Bandeja_ram/eliminar_ram.php" > Eliminar Ram </a>
         </div>
         
    </header>

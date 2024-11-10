@@ -15,13 +15,13 @@ Class Ram {
         $this->asistencia_promocion=$asistencia_promocion;
     }
 
-    public function checkear_ram($conn){
+    public static function checkear_ram($conn, $CUE){
         $consulta="SELECT *
         FROM ram
         WHERE CUE=:CUE";
 
         $stmt=$conn->prepare($consulta);
-        $stmt->bindparam(":CUE",$this->CUE,PDO::PARAM_STR);
+        $stmt->bindparam(":CUE",$CUE,PDO::PARAM_STR);
         $stmt->execute();
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -63,13 +63,13 @@ Class Ram {
         
     }
 
-    public function eliminar_ram($conn){
+    public static function eliminar_ram($conn, $CUE){
         $consulta="DELETE
         FROM ram
         WHERE CUE=:CUE";
 
         $stmt=$conn->prepare($consulta);
-        $stmt->bindparam(":CUE",$this->CUE,PDO::PARAM_STR);
+        $stmt->bindparam(":CUE",$CUE,PDO::PARAM_STR);
         $stmt->execute(); 
     }
 
@@ -140,10 +140,22 @@ Class Ram {
                 $condicion='Sin ram';
                 return $condicion;
                 break;
-                
-            
+        }
+    }
 
+    public static function institutos_con_ram($conn){
+        $consulta="SELECT *
+        FROM instituto
+        JOIN ram ON instituto.CUE = ram.CUE";
 
+        $stmt=$conn->prepare($consulta);
+        $stmt->execute();
+        $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(!$row){
+            return false;
+        }else{
+            return $row;
         }
     }
 }
