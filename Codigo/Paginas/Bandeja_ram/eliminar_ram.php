@@ -56,8 +56,8 @@
 
             <h3>Eliminar Ram</h3>
 
-                <label for="institutos">Seleccione el instituto del cual desea borrar su Ram</label>
-                <select name="institutos" id="institutos">
+                <label for="CUE">Seleccione el instituto del cual desea borrar su Ram</label>
+                <select name="CUE" id="institutos">
                     <?php
                     foreach($rams as $ram){
                         echo'<option name="CUE" value="'.$ram["CUE"].'">'.$ram["nombre"].'</option>';
@@ -68,7 +68,7 @@
 
                 <?php 
                    if($_SERVER ["REQUEST_METHOD"] == "POST"){
-                        $CUE = $POST["CUE"];
+                        $CUE=$_POST["CUE"];
                         Ram::eliminar_ram($conn,$CUE);
                         $checkeo=Ram::checkear_ram($conn,$CUE);
                         if(!$checkeo){

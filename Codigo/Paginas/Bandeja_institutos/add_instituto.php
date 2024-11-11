@@ -103,7 +103,7 @@
                         $legajo = $profesor["legajo"];
 
                         $instituto=new Instituto($CUE,$direccion,$descripcion,$nivel,$nombre);
-                        $checkeo=$instituto->corroborarInstituto($conn);
+                        $checkeo=Instituto::corroborarInstituto($conn,$CUE);
                         $asignacion=new Profesor_Instituto($legajo,$CUE);
                         $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
 
@@ -117,7 +117,7 @@
                         }else{
                             $instituto->subirInstituto($conn);
                             $asignacion->subir_profesor_instituto($conn);
-                            $checkeo=$instituto->corroborarInstituto($conn);
+                            $checkeo=Instituto::corroborarInstituto($conn,$CUE);
                             $checkeo_asignacion=$asignacion->checkear_profesor_instituto($conn);
                             if($checkeo and $checkeo_asignacion){
                                 echo ('<p> Se ha subido y asignado el instituto correctamente </p>');   

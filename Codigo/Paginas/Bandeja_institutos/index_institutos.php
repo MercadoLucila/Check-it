@@ -59,6 +59,7 @@
 
         <div class="solapas">
             <a href="add_instituto.php" > Agregar Instituto </a>
+            <a href="eliminar_instituto.php" > Eliminar Instituto </a>
             <a href="../Bandeja_ram/eliminar_ram.php" > Eliminar Ram </a>
         </div>
         

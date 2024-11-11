@@ -57,13 +57,13 @@ class Instituto{
         
     }
 
-    public function corroborarInstituto($conn){
+    public static function corroborarInstituto($conn, $CUE){
         $consulta="SELECT *
         FROM instituto
         WHERE CUE=:CUE";
 
         $stmt=$conn->prepare($consulta);
-        $stmt->bindparam(':CUE',$this->CUE,PDO::PARAM_INT);
+        $stmt->bindparam(':CUE',$CUE,PDO::PARAM_INT);
         $stmt->execute();
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
         
