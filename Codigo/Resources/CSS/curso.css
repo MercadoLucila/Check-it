@@ -115,10 +115,16 @@ body {
     flex-direction: column;
     align-items: flex-start;
     transition: transform 3s ease;
+    text-align: center;
 }
 
-.solapas a:hover {
-    background-color: #4f8152; 
+.solapas a:hover{
+    background-color: #417844; 
+    transform: scale(1.025);
+}
+
+.ram a:hover{
+    background-color: #60a631d2; 
     transform: scale(1.025);
 }
 

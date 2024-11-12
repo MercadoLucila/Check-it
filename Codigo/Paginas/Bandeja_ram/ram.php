@@ -15,6 +15,8 @@
         return $data;
     }
 
+    $rams=Ram::institutos_con_ram($conn);
+
 ?>
 
 <!DOCTYPE html>
@@ -42,17 +44,26 @@
         </nav>
 
     </div>
-
-   <header class="header">
+    <div class="image"></div>
+    <header class="header">
 
         <div class="bandeja">
             <div class="interactivos">
                 <a href="../Bandeja_institutos/index_institutos.php" >Volver</a>
             </div>
 
-            <form id="formulario" name="add_ram" action="ram.php" method="post">
+            <form action="../Bandeja_ram/ram.php" method="post">
 
-            <h3>Agregar Ram a <?php echo '<b>'.$_SESSION['instituto.nombre'].'</b>' ?> </h3>
+            <h3>Agregar Ram</h3>
+
+                <label for="CUE">Seleccione el instituto al cual desea agregar su Ram</label>
+                <select name="CUE" id="institutos">
+                    <?php
+                    foreach($rams as $ram){
+                        echo'<option name="CUE" value="'.$ram["CUE"].'">'.$ram["nombre"].'</option>';
+                    }
+                    ?>
+                </select>
 
                 <label for="regular">Nota Regular Mínima</label>
                 <input id="regular" name="nota_regular" type="number" required>
@@ -63,22 +74,21 @@
                 <label for="porcentaje_regular">Porcentaje de asistencia para estado Regular:</label>
                 <span>%</span>
                 <input type="number" id="porcentaje_regular" name="porcentaje_regular" min="0" max="100" step="0.01">
-                
-                
 
                 <label for="porcentaje_promocion">Porcentaje de asistencia para estado Promocional:</label>
                 <span>%</span>
                 <input type="number" id="porcentaje_promocion" name="porcentaje_promocion" min="0" max="100" step="0.01">
                 
+                
 
                 <?php 
                    if($_SERVER ["REQUEST_METHOD"] == "POST"){
+                        $CUE=$_POST["CUE"];
                         $nota_regular = clean_input($_POST["nota_regular"]);
                         $nota_promocion = clean_input($_POST["nota_promocion"]); 
                         $porcentaje_regular = clean_input($_POST["porcentaje_regular"]);
                         $porcentaje_promocion = clean_input($_POST["porcentaje_promocion"]);
                         
-                        $CUE=$_SESSION["instituto"];
                         $ram=new RAM($CUE, $nota_regular, $nota_promocion, $porcentaje_regular, $porcentaje_promocion);
                         $checkeo=$ram->checkear_ram($conn,$CUE);
                         if($checkeo){

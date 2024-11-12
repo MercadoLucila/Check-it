@@ -118,13 +118,14 @@ $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
                 <a href="alta_alumno.php" > Agregar Alumno </a>
                 <a href="eliminar_alumno.php">Eliminar Alumno</a>
                 <a href="modificar_alumno.php">Editar Alumno</a>
+                <a href="estado_alumno.php">Ver estado Alumno</a>
                 <a href="fecha_parcial.php">Subir Notas</a>
                 <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
             </div>
             <div class="ram">
                 <?php 
                     if(!$ram){
-                        echo '<a href="../Bandeja_ram/ram.php" > Agregar RAM a '.$_SESSION["instituto.nombre"].'</b></a>';
+                        echo '<a href="../Bandeja_ram/ram_instituto.php" > Agregar RAM a '.$_SESSION["instituto.nombre"].'</b></a>';
                     }
                     
                 ?>

@@ -110,7 +110,7 @@ if(isset($_POST["fecha"])){
                 if(!$ram){
                     echo '<p>Para poder mostrar el estado del alumno es necesario que ingrese la RAM del instituto '.$_SESSION["instituto.nombre"].'. 
                     ¿Desea agregar RAM al instituto '.$_SESSION["instituto.nombre"].'? </p>
-                    <a href="../Bandeja_ram/ram.php" > Agregar RAM a <b>'.$_SESSION["instituto.nombre"].'</b></a>'; 
+                    <a href="../Bandeja_ram/ram_instituto.php" > Agregar RAM a <b>'.$_SESSION["instituto.nombre"].'</b></a>'; 
                 }
             ?>
     </div>
