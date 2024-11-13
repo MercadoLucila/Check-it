@@ -43,6 +43,7 @@ $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../Resources/CSS/curso.css">
     <link rel="icon" href="../../Resources/imagenes/Logo.ico">
+    <script src="../../Resources/JS/curso.js" ></script>
 
     <title>Check-it Curso</title>
 </head>
@@ -65,33 +66,35 @@ $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
 
    <header class="header">
         <div class="bandeja">
-            <a class="interactivos" href="../Bandeja_materias/index_materias.php">Volver a Materias</a>
             <div class="bandeja1" >
-                    <div>
-                        <table>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Fecha de Nacimiento</th>
-                                <th>DNI</th>
-                                <th>Presente</th>
-                            </tr>                    
-                        
-                        <form action="curso.php" method="post">
-                        <?php 
-                            if($alumnos){
-                                foreach($alumnos as $alumno){
-                                    echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
-                                    <td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td>
-                                    <td>'.$alumno["DNI"].'</td>
-                                    <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>';
+                    <div>              
+                        <form id="curso" action="curso.php" method="post">
+                        <div class="botones">
+                            <a class="interactivos" href="../Bandeja_materias/index_materias.php">Volver a Materias</a>
+                            <input type="submit" value="Subir Asistencia">
+                            <button type="button" onclick="seleccionarTodos()">Marcar a Todos</button>
+                            <button type="button" onclick="deseleccionarTodos()">Desmarcar a Todos</button>
+                        </div>
+                            <table>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Fecha de Nacimiento</th>
+                                    <th>DNI</th>
+                                    <th>Presente</th>
+                                </tr>      
+                                <?php 
+                                if($alumnos){
+                                    foreach($alumnos as $alumno){
+                                        echo '<tr><td>'.$alumno["nombre"].' '.$alumno["apellido"].'</td>
+                                        <td>'.$alumno["email"].'</td><td>'.$alumno["nacimiento"].'</td>
+                                        <td>'.$alumno["DNI"].'</td>
+                                        <td><input type="checkbox" name="presentes[]" value="'.$alumno["DNI"].'"></td>';
+                                    }
                                 }
-                            }
-                        ?>
-                    
-                        <input type="submit" value="Subir Asistencia">
+                                ?>
+                            </table>
                         </form>
-                        </table>
                     </div>
                 
             </div>
@@ -119,6 +122,7 @@ $cumpleanios=Alumno::buscar_cumpleanios($conn,$materia);
                 <a href="eliminar_alumno.php">Eliminar Alumno</a>
                 <a href="modificar_alumno.php">Editar Alumno</a>
                 <a href="estado_alumno.php">Ver estado Alumno</a>
+                <a href="eliminar_asistencia.php">Eliminar asistencia</a>
                 <a href="fecha_parcial.php">Subir Notas</a>
                 <a href="../Bandeja_institutos/index_institutos.php">Inicio</a>
             </div>

@@ -26,10 +26,23 @@ class Asistencia{
 
     }
 
-    public static function verificar_asistencia($conn, $DNI_alumno, $codigo_materia){
-        $fecha=new DateTime();
+    public function eliminar_asistencia($conn){
+       
+        $consulta='DELETE
+        FROM asistencia
+        WHERE codigo_materia=:codigo_materia and DNI_alumno=:DNI_alumno and fecha=:fecha';
+
+        $stmt=$conn->prepare($consulta);
+        $stmt->bindparam(':codigo_materia',$this->codigo_materia,PDO::PARAM_STR);
+        $stmt->bindparam(':DNI_alumno',$this->DNI_alumno,PDO::PARAM_INT);
+        $stmt->bindparam(':fecha',$this->fecha);
+        $stmt->execute();
+
+    }
+
+    public static function verificar_asistencia($conn, $DNI_alumno, $codigo_materia,$fecha){
         $consulta='SELECT DNI_alumno
-        INTO asistencia
+        FROM asistencia
         WHERE DNI_alumno=:DNI_alumno and codigo_materia=:codigo_materia and fecha=:fecha';
 
         $stmt=$conn->prepare($consulta);
@@ -37,7 +50,7 @@ class Asistencia{
         $stmt->bindparam(':codigo_materia',$codigo_materia,PDO::PARAM_STR);
         $stmt->bindparam(':fecha',$fecha);
         $stmt->execute();
-        $row=$stmt->fetchAll(PDO::FETCH_ASSOC);
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
         return $row;
         

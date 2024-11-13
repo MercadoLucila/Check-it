@@ -87,21 +87,24 @@ if(isset($_POST["fecha"])){
                     if(isset($_POST['DNI'])){
                         $DNI = clean_input($_POST['DNI']);
                         $nota = clean_input($_POST['nota']);
-
-                        $calificacion=new Nota($materia,$DNI,$nota,$fecha);
-                        $checkeo_nota=$calificacion->checkear_nota($conn);
-                        if($checkeo_nota){
-                            echo '<p> Ya subió la nota de este alumno y ese parcial </p>';
+                        if($nota>10 or $nota<1){
+                            echo '<p> No se admiten notas mayores a 10 o menores a 1 </p>';
                         }else{
-                            $calificacion->subir_nota($conn);
                             $calificacion=new Nota($materia,$DNI,$nota,$fecha);
                             $checkeo_nota=$calificacion->checkear_nota($conn);
                             if($checkeo_nota){
-                                echo '<p> Nota subida correctamente </p>';
-                                header("location: agregar_nota.php");
-                                exit();
+                                echo '<p> Ya subió la nota de este alumno y ese parcial </p>';
                             }else{
-                                echo '<p> No se pudo subir la nota </p>';
+                                $calificacion->subir_nota($conn);
+                                $calificacion=new Nota($materia,$DNI,$nota,$fecha);
+                                $checkeo_nota=$calificacion->checkear_nota($conn);
+                                if($checkeo_nota){
+                                    echo '<p> Nota subida correctamente </p>';
+                                    header("location: agregar_nota.php");
+                                    exit();
+                                }else{
+                                    echo '<p> No se pudo subir la nota </p>';
+                                }
                             }
                         }
                     }  
