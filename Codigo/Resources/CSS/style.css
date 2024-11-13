@@ -61,6 +61,11 @@ body {
     margin-left: 1vw;
 }
 
+.inicio{
+    display: flex;
+    flex-direction: column;
+    align-items:baseline;
+}
 
 /* Estilo de la barra de navegación */
 .navbar {
@@ -96,36 +101,39 @@ body {
     margin-left: 50px;
     background: linear-gradient(#2c5f2d);
     border-radius: 20vh;
+    padding: 1vh;
+    background-color: #112611bf;
+
     
 }
 
 /* Estilo del párrafo en el header */
 .header p {
     font-size: 20px;
-    color: #b2e0b2; /* Color verde medio para el texto del párrafo */
+    color: #ffffff; /* Color verde medio para el texto del párrafo */
     margin-left: 50px;
     margin-right: 50px;
+    background-color: #112611bf;
+    border-radius: 6vh;
+    padding: 2%;
+    margin: 1vh;
 }
 
 
-.btn-home .btn {
+.registrarse .btn {
     background-color: #4caf50; /* Verde brillante para el botón */
     color: white; /* Texto blanco en el botón */
-    margin: 50px;
+    margin: 1vh;
     padding: 10px 15px; /* Espaciado interno del botón */
     border-radius: 4px; /* Bordes redondeados en el botón */
     text-decoration: none; /* Sin subrayado en el botón */
 }
 
-/* Efecto al pasar el mouse sobre el botón */
+
 .btn-home .btn:hover {
-    background-color: #45a049; /* Color verde más oscuro al pasar el mouse sobre el botón */
+    background-color: #45a049; 
 }
 
-/*
-*/ 
-
-/* Estilo general del formulario */
 .form {
     background-color: #f9f9f9; /* Fondo claro para contraste */
     border-radius: 8px; /* Bordes redondeados */
@@ -139,14 +147,12 @@ body {
     
 }
 
-/* Estilo del título */
 .form h3 {
-    color: #2c5f2d; /* Color verde oscuro */
-    text-align: center; /* Centrado del texto */
+    color: #2c5f2d; 
+    text-align: center; 
     margin-bottom: 15px;
 }
 
-/* Estilo de las etiquetas */
 label {
     align-self: flex-start;
     display: flex; /* Para que cada etiqueta ocupe toda la línea */
@@ -155,7 +161,6 @@ label {
     color: #4a8c4a; /* Color verde medio */
 }
 
-/* Estilo de los campos de entrada */
 input[type="email"],
 input[type="password"] {
     margin-right: 10px;
@@ -167,7 +172,6 @@ input[type="password"] {
     font-size: 16px; /* Tamaño de fuente legible */
 }
 
-/* Estilo del botón */
 button {
     background-color: #4caf50; /* Verde brillante para el botón */
     color: white; /* Texto blanco en el botón */

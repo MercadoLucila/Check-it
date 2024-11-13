@@ -21,8 +21,12 @@ $alumnos = Alumno::buscarAlumnos($conn,$materia);
 $ram=Ram::obtener_ram($conn,$_SESSION["instituto"]);
 
 if(isset($_POST["fecha"])){
-    $_SESSION["fecha_parcial"]=$_POST["fecha"];
-    $fecha = $_SESSION["fecha_parcial"];
+    $_SESSION["fecha"]=$_POST["fecha"];
+   
+}
+
+if(isset($_SESSION["fecha"])){
+    $fecha=$_SESSION["fecha"];
 }
 
 

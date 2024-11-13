@@ -47,11 +47,11 @@ session_start();
             <a href="curso.php" >Volver</a>
         </div>
 
-        <form action="agregar_nota.php" method="post">
+        <form name="fecha" action="agregar_nota.php" method="post">
             <label for="fecha">Fecha del Parcial</label>
             <input id="fecha" name="fecha" type="date" required>
 
-            <input type="submit" value="Subir Fecha">
+            <button type="submit">Subir Fecha</button>
 
             <p>Antes de continuar es necesario que indique la fecha en la que se tomó la instancia evaluativa.</p>
         </form>
