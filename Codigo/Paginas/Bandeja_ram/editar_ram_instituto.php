@@ -69,10 +69,20 @@ $CUE=$_SESSION["instituto"];
                             $porcentaje_regular = $_POST['porcentaje_regular'];
                             $porcentaje_promocion = $_POST['porcentaje_promocion'];
 
-                            $ram=new Ram($CUE,$nota_regular,$nota_promocion,$porcentaje_regular,$porcentaje_promocion);
-                            $ram->editar_ram($conn);
-                            echo '<p> El ram se ha editado correctamente</p>';
-
+                            if($nota_regular>10 or $nota_regular<1 or $nota_promocion>10 or $nota_promocion<1 or $porcentaje_regular>100 or $porcentaje_regular<1 or $porcentaje_promocion>100 or $porcentaje_promocion<1){
+                                echo '<p> No se pueden asignar notas menores a 1 o mayores a 10 ni promedios de asistencias menores a 1 o mayores a 100.</p>';
+                            }else{
+                                $checkeo=Ram::checkear_ram($conn,$CUE);
+                                if($checkeo){
+                                    $ram=new Ram($CUE,$nota_regular,$nota_promocion,$porcentaje_regular,$porcentaje_promocion);
+                                    $ram->editar_ram($conn);
+                                    echo '<p> El ram se ha editado correctamente</p>';
+                                }else{
+                                    echo '<p> No se puede editar la ram si no fue creada previamente.</p>';
+                                }
+                            }
+                            
+                            
                         }
                         
                     ?>
